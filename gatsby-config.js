@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  pathPrefix: "/reponame",
+  pathPrefix: "/tscheduler",
   plugins: [
     {
       resolve: `gatsby-plugin-typography`,
