@@ -5,6 +5,7 @@
  */
 
 module.exports = {
+  pathPrefix: "/reponame",
   plugins: [
     {
       resolve: `gatsby-plugin-typography`,
