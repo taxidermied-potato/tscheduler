@@ -73,16 +73,40 @@ body::-webkit-scrollbar {
 
 .class-card .card-title {
     font-size: .9rem;
-    line-height: 1.2rem;
+    line-height: 1rem;
 }
 
 .class-card .card-subtitle {
     font-size: .9rem;
-    line-height: .8rem;
+    line-height: 1rem;
 }
 
 .class-card .card-body {
+    max-height: 20rem;
+    overflow-y: scroll;
+}
+
+.options-menu .class-card .card-body{
     overflow-y: hidden;
+}
+
+.section-card .card-header {
+    padding: .5rem;
+    border-bottom: none!important;
+}
+
+.section-card .card-body {
+    max-height: 20rem;
+    overflow-y: hidden;
+}
+
+.section-card p {
+    margin-bottom: 0;
+}
+
+.card-header {
+    cursor: pointer;
+    white-space: pre-wrap;
 }
 
 .no-radius {
