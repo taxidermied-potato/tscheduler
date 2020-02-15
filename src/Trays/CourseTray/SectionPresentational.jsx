@@ -26,28 +26,30 @@ class SectionPresentational extends PureComponent {
             .then(res => res.json())
             .then(data => {
                 this.setState({ sectionData: data })
-                console.log(this.state.sectionData)
             })
             .catch(console.log)
     }
 
     renderMeetings(meeting) {
-        return (<div key={meeting}>     
-            {/* {meeting.days} */}
-        </div>)
+        return (<span key={"" + meeting.days + meeting.building + meeting.room.toString() + meeting.start_time}>
+            {meeting.days} {meeting.start_time} - {meeting.end_time} @ {meeting.building} {meeting.room.toString()} {meeting.classtype !== "" ? ": " + meeting.classtype : ""}
+            <br />
+        </span>)
     }
 
     render() {
         return (
-            <Card className="mb-1 front no-radius section-card">
+            <Card className="mb-1 no-radius section-card">
                 <Card.Header>
                     <p className="float-left">
                         {this.state.sectionData.number} - {this.state.sectionData.instructors.join(', ')}
-                        <br />
-                        {/* {this.state.sectionData.meetings.map(meeting => this.renderMeetings())} */}
                     </p>
-                    <p className="float-right">
+                    <p className="float-right text-muted">
                         Seats (Total: {this.state.sectionData.seats}, Open: {this.state.sectionData.open_seats}, Waitlist: {this.state.sectionData.waitlist})
+                    </p>
+                    <br />
+                    <p>
+                        {this.state.sectionData.meetings.map(meeting => this.renderMeetings(meeting))}
                     </p>
                 </Card.Header>
             </Card>

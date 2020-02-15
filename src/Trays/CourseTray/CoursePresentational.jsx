@@ -70,7 +70,7 @@ class CoursePresentational extends PureComponent {
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={this.props.course.course_id}>
                         <Card.Body className="p-3 pl-4">
-                            <Card.Text> {this.state.courseData.description !== null ? this.state.courseData.description : "Contact " + this.state.courseData.dept_id  + " department for details"} </Card.Text>
+                            <Card.Text> {this.state.courseData.description !== null ? this.state.courseData.description : "Contact " + this.state.courseData.dept_id  + " department for details."} </Card.Text>
                             {this.state.courseData.sections.map(section => this.renderSection(section))}
                         </Card.Body>
                     </Accordion.Collapse>

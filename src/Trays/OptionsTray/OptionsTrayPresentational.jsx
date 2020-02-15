@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip"
 class OptionsTrayPresentational extends PureComponent {
    render() {
       return (
-         <Card className="front no-radius class-card">
+         <Card className="front no-radius options-card">
             <Card.Body className="px-0 pt-2 pb-3">
                <Container>
                   <Form className="m-0" onSubmit={e => e.preventDefault()}>

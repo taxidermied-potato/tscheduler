@@ -86,8 +86,27 @@ body::-webkit-scrollbar {
     overflow-y: scroll;
 }
 
-.options-menu .class-card .card-body{
+.options-card .card-title {
+    font-size: .9rem;
+    line-height: 1rem;
+}
+
+.options-card .card-subtitle {
+    font-size: .9rem;
+    line-height: 1rem;
+}
+
+.options-card .card-body {
+    max-height: 20rem;
     overflow-y: hidden;
+}
+
+.section-card:hover {
+    background-color: rgb(233, 232, 231);
+}
+
+.section-card:active {
+    background-color: white;
 }
 
 .section-card .card-header {
