@@ -7,6 +7,7 @@ class CoursePresentational extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
+            showSections: false,
             courseData: {
                 course_id: null,
                 semester: "202001",
@@ -33,13 +34,18 @@ class CoursePresentational extends PureComponent {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         fetch(proxyurl + "https://api.umd.io/v0/courses/" + this.props.course.course_id)
             .then(res => res.json())
-            .then(data => {
-                this.setState({ courseData: data })
+            .then(data => {                
+                this._isMounted && this.setState({ courseData: data })
             })
             .catch(console.log)
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     renderSubtitle() {
@@ -62,7 +68,7 @@ class CoursePresentational extends PureComponent {
                     key={this.props.course.course_id}
                     className="mb-2 front no-radius class-card"
                 >
-                    <Accordion.Toggle className="p-3 pl-4" as={Card.Header} variant="link" eventKey={this.props.course.course_id}>                        
+                    <Accordion.Toggle className="p-3 pl-4" as={Card.Header} variant="link" eventKey={this.props.course.course_id} onClick={() => this.setState({showSections: !this.state.showSections})}>                        
                         <Card.Title>{this.props.course.course_id} - {this.props.course.name}</Card.Title>
                         <Card.Subtitle className="mb-1 text-muted">
                             {this.renderSubtitle()}
@@ -70,8 +76,8 @@ class CoursePresentational extends PureComponent {
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={this.props.course.course_id}>
                         <Card.Body className="p-3 pl-4">
-                            <Card.Text> {this.state.courseData.description !== null ? this.state.courseData.description : "Contact " + this.state.courseData.dept_id  + " department for details."} </Card.Text>
-                            {this.state.courseData.sections.map(section => this.renderSection(section))}
+                            <Card.Text> {this.state.courseData.description !== null ? this.state.courseData.description : "Contact " + (this.state.courseData.dept_id !== null ? this.state.courseData.dept_id + " " : "")  + "department for details."} </Card.Text>
+                            {this.state.showSections ? this.state.courseData.sections.map(section => this.renderSection(section)) : ""}
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>

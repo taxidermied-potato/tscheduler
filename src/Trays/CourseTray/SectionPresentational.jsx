@@ -21,13 +21,18 @@ class SectionPresentational extends PureComponent {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         fetch(proxyurl + "https://api.umd.io/v0/courses/sections/" + this.props.section)
             .then(res => res.json())
             .then(data => {
-                this.setState({ sectionData: data })
+                this._isMounted && this.setState({ sectionData: data })
             })
             .catch(console.log)
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     renderMeetings(meeting) {
@@ -48,7 +53,7 @@ class SectionPresentational extends PureComponent {
                         Seats (Total: {this.state.sectionData.seats}, Open: {this.state.sectionData.open_seats}, Waitlist: {this.state.sectionData.waitlist})
                     </p>
                     <br />
-                    <p>
+                    <p className="text-muted">
                         {this.state.sectionData.meetings.map(meeting => this.renderMeetings(meeting))}
                     </p>
                 </Card.Header>

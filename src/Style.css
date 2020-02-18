@@ -11,12 +11,30 @@ body::-webkit-scrollbar {
     display: none; 
 }
 
+.main {
+    display: flex;
+}
+
+.course-sched {
+    display: flex;
+    align-items:flex-start;
+}
+
 .cursor {
     cursor:pointer;
 }
 
 .pb-6 {
     padding-bottom: 1.8rem;
+}
+
+.container {
+    max-width: 100%;
+}
+
+.course-tray {
+    display: flex;
+    overflow: auto;
 }
 
 .options-menu {
@@ -69,6 +87,10 @@ body::-webkit-scrollbar {
 
 .heading-card::-webkit-scrollbar { 
     display: none; 
+}
+
+.class-card {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .class-card .card-title {
@@ -204,4 +226,18 @@ button {
 
 .time-form {
     padding-top: .3rem;
+}
+
+.schedule {
+    background: rgba(245, 245, 245, 0.2);
+}
+
+.schedule .row {
+    margin: 0;
+    border: 1px black;
+}
+
+.schedule .col {
+    margin: 0;
+    border: 1px black;
 }
