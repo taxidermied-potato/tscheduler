@@ -5,8 +5,7 @@ import {
    Container,
    Form,
    Card,
-   Row,
-   Col
+   Row
 } from "react-bootstrap"
 import OptionsTray from "./Trays/OptionsTray/OptionsTrayDriver"
 import CourseTray from "./Trays/CourseTray/CourseTrayPresentational"
@@ -21,7 +20,8 @@ class App extends Component {
          moreOptions: true,
          searchKey: "",
          courses: [],
-         filteredCourses: []
+         filteredCourses: [],
+         selectedSections: []
       }
    }
 
@@ -120,7 +120,7 @@ class App extends Component {
                </Row>
                <div className="course-sched">
                   <CourseTray filteredCourses={this.state.filteredCourses} />
-                  {/* <ScheduleTray /> */}
+                  <ScheduleTray />
                </div>
             </Container>
          </div>

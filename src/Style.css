@@ -4,7 +4,7 @@ body {
     overflow-y: hidden;
     background: #DFDEDD;
     background-position: 30% 80%;
-    background-image: url("./images/turtle.jpg");
+    background-image: url("./images/turtle2.jpg");
 }
 
 body::-webkit-scrollbar { 
@@ -145,7 +145,7 @@ body::-webkit-scrollbar {
     margin-bottom: 0;
 }
 
-.card-header {
+.course-tray .card-header {
     cursor: pointer;
     white-space: pre-wrap;
 }
@@ -229,15 +229,57 @@ button {
 }
 
 .schedule {
-    background: rgba(245, 245, 245, 0.2);
+    background: rgba(245, 245, 245, 0.8);
 }
 
 .schedule .row {
     margin: 0;
-    border: 1px black;
+    padding: 0;
+    border-style: none;
 }
 
-.schedule .col {
+.schedule .col{
     margin: 0;
-    border: 1px black;
+    padding: 0;
+    border-style: none;
+}
+
+.schedule .col-1{
+    max-width: 5rem;
+    margin: 0;
+    padding: 0;
+    border-style: none;
+}
+
+.calendar-div div {
+    border-color: rgba(45, 45, 45, 0.25);
+    border-style: dashed;
+    border-width: .5px;
+    background: rgba(245, 245, 245, 0);  
+}
+
+.x-axis-div {
+    border-color: rgb(245, 245, 245)!important;
+    background: rgb(245, 245, 245)!important;
+    text-align: center;
+}
+
+.y-axis-div {
+    background: rgba(245, 245, 245, 1)!important;
+    text-align: right;
+}
+
+.filled {
+    background: rgb(229, 24, 55)!important;
+}
+
+.cancel-button {
+    height: 1.5rem;
+    width: 1rem;
+    font-weight: 500;
+    font-size: .8rem;
+    font-family: 'Open Sans', sans-serif;
+    font-variant: small-caps;
+    padding-right: 1rem;
+    padding-top: 0rem;
 }
