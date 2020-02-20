@@ -134,7 +134,7 @@ class ScheduleTrayPresentational extends PureComponent {
                                     <Row>
                                         CMSC999-101
                                         <Button
-                                            className="ml-2 cancel-button"
+                                            className="ml-1 pb-1 p-0 cancel-button"
                                             variant="light"
                                             type="button">
                                             x
@@ -145,7 +145,7 @@ class ScheduleTrayPresentational extends PureComponent {
                                     <Row>
                                         CMSC999-101
                                         <Button
-                                            className="ml-2 cancel-button"
+                                            className="ml-1 pb-1 p-0 cancel-button"
                                             variant="light"
                                             type="button">
                                             x
@@ -156,7 +156,7 @@ class ScheduleTrayPresentational extends PureComponent {
                                     <Row>
                                         CMSC999-101
                                         <Button
-                                            className="ml-2 cancel-button"
+                                            className="ml-1 pb-1 p-0 cancel-button"
                                             variant="light"
                                             type="button">
                                             x

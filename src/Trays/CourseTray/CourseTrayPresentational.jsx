@@ -19,8 +19,10 @@ class CourseTrayPresentational extends PureComponent {
                         Welcome to TerpScheduler.
                 </Card.Header>
                     <Card.Body>
-                        This is a condensed web app that streamlines the course selection process by combining the functionality of Testudo,
-                        review aggregators/GPA averages, and GUI based schedule previews.
+                        This is a condensed, single page web app that streamlines the course selection process by combining the functionality of Testudo,
+                        review aggregators, course GPA averages, and GUI based schedule previews.
+                        <br /><br />
+                        Built with React, Redux, and Gatsby. Data pulled from umd.io, PlanetTerp, and Rate My Professors. Will eventually be served via GraphQL to make stuff faster.
                 </Card.Body>
                 </Card>
                 <Card className="mb-3">
@@ -42,14 +44,20 @@ class CourseTrayPresentational extends PureComponent {
                 </Card>
                 <Card>
                     <Card.Body>
-                        Working on
+                        Q & A
                         <br /><br />
                         <ul>
                             <li>
-                                Rate my Professor + PlanetTerp data integration
+                                Why am I back here after a search? - Unfortunately, UMD offers neither underwater basket weaving nor afoijaofiwfeo.
                             </li>
                             <li>
-                                Advanced filtering options will actually work.
+                                Why doesn't x feature work? - I am lazy and have yet to implement it.
+                            </li>
+                            <li>
+                                Why are the sections blank? - The API is an old man. Patience is key.
+                            </li>
+                            <li>
+                                The tortoise is cute. - I think so too.
                             </li>
                         </ul>
                     </Card.Body>
