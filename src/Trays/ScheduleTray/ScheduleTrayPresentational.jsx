@@ -1,6 +1,29 @@
 import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 import { Card, Row, Col, Button } from "react-bootstrap"
+import { connect } from "react-redux"
+
+const Counter = ({ count, increment }) => (
+    <div>
+        <p>Count: {count}</p>
+        <button onClick={increment}>Increment</button>
+    </div>
+)
+
+Counter.propTypes = {
+    count: PropTypes.number.isRequired,
+    increment: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = ({ count }) => {
+    return { count }
+}
+
+const mapDispatchToProps = dispatch => {
+    return { increment: () => dispatch({ type: `INCREMENT` }) }
+}
+
+const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter)
 
 class ScheduleTrayPresentational extends PureComponent {
     constructor(props) {
@@ -99,21 +122,21 @@ class ScheduleTrayPresentational extends PureComponent {
                                     className="mx-2 px-2 header-button"
                                     variant="danger"
                                     type="button">
-                                        clear schedule
+                                    clear schedule
                                 </Button>
                                 <Button
                                     className="mx-2 px-2 header-button"
                                     variant="danger"
                                     type="button">
-                                        export schedule
+                                    export schedule
                                 </Button>
                                 <Card className="p-1 mx-2 back">
                                     <Row>
                                         CMSC999-101
                                         <Button
-                                        className="ml-2 cancel-button"
-                                        variant="light"
-                                        type="button">
+                                            className="ml-2 cancel-button"
+                                            variant="light"
+                                            type="button">
                                             x
                                         </Button>
                                     </Row>
@@ -122,9 +145,9 @@ class ScheduleTrayPresentational extends PureComponent {
                                     <Row>
                                         CMSC999-101
                                         <Button
-                                        className="ml-2 cancel-button"
-                                        variant="light"
-                                        type="button">
+                                            className="ml-2 cancel-button"
+                                            variant="light"
+                                            type="button">
                                             x
                                         </Button>
                                     </Row>
@@ -133,11 +156,12 @@ class ScheduleTrayPresentational extends PureComponent {
                                     <Row>
                                         CMSC999-101
                                         <Button
-                                        className="ml-2 cancel-button"
-                                        variant="light"
-                                        type="button">
+                                            className="ml-2 cancel-button"
+                                            variant="light"
+                                            type="button">
                                             x
                                         </Button>
+                                        {/* <ConnectedCounter /> */}
                                     </Row>
                                 </Card>
                             </Row>

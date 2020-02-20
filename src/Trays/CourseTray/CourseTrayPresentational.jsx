@@ -23,7 +23,7 @@ class CourseTrayPresentational extends PureComponent {
                         review aggregators/GPA averages, and GUI based schedule previews.
                 </Card.Body>
                 </Card>
-                <Card>
+                <Card className="mb-3">
                     <Card.Body>
                         v 0.0.0
                         <br /><br />
@@ -36,6 +36,20 @@ class CourseTrayPresentational extends PureComponent {
                             </li>
                             <li>
                                 Memory leak occurring less than 5% of the time. Huge success.
+                            </li>
+                        </ul>
+                    </Card.Body>
+                </Card>
+                <Card>
+                    <Card.Body>
+                        Working on
+                        <br /><br />
+                        <ul>
+                            <li>
+                                Rate my Professor + PlanetTerp data integration
+                            </li>
+                            <li>
+                                Advanced filtering options will actually work.
                             </li>
                         </ul>
                     </Card.Body>

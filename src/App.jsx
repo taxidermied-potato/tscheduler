@@ -7,9 +7,9 @@ import {
    Card,
    Row
 } from "react-bootstrap"
-import OptionsTray from "./Trays/OptionsTray/OptionsTrayDriver"
-import CourseTray from "./Trays/CourseTray/CourseTrayPresentational"
-import ScheduleTray from "./Trays/ScheduleTray/ScheduleTrayPresentational"
+import OptionsTray from "./trays/OptionsTray/OptionsTrayDriver"
+import CourseTray from "./trays/CourseTray/CourseTrayPresentational"
+import ScheduleTray from "./trays/ScheduleTray/ScheduleTrayPresentational"
 
 class App extends Component {
    /** Sets up the initial UI state */
