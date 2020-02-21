@@ -27,7 +27,7 @@ class CourseTrayPresentational extends PureComponent {
                 </Card>
                 <Card className="mb-3">
                     <Card.Body>
-                        v 0.0.0
+                        v 0.1.0
                         <br /><br />
                         <ul>
                             <li>

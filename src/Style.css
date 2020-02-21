@@ -104,7 +104,7 @@ body::-webkit-scrollbar {
 }
 
 .class-card .card-body {
-    max-height: 20rem;
+    max-height: 25rem;
     overflow-y: scroll;
 }
 
@@ -125,10 +125,6 @@ body::-webkit-scrollbar {
 
 .section-card:hover {
     background-color: rgb(233, 232, 231);
-}
-
-.section-card:active {
-    background-color: white;
 }
 
 .section-card .card-header {
@@ -190,6 +186,17 @@ button {
     font-variant: small-caps;
     padding-top: .1rem;
     padding-bottom: .25rem;
+}
+
+.add-button {
+    margin-top: -.4rem;
+    font-weight: 400;
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    font-family: 'Open Sans', sans-serif;
+    font-variant: small-caps;
+    padding-bottom: .2rem;
+    padding-top: 0rem;
 }
 
 .options-button {

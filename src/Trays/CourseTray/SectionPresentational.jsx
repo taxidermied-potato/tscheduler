@@ -1,6 +1,28 @@
 import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
-import { Card } from "react-bootstrap"
+import { Card, Button } from "react-bootstrap"
+import { connect } from "react-redux"
+
+const Adder = ({ add }) => (
+    <div>
+        <Button className="px-2 add-button"
+            variant="danger"
+            type="button"
+            onClick={add}>
+            add
+        </Button>
+    </div>
+)
+
+Adder.propTypes = {
+    add: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return { add: () => dispatch({ type: `ADD_COURSE`, item: ownProps.course }) }
+}
+
+const ConnectedCounter = connect(null, mapDispatchToProps)(Adder)
 
 class SectionPresentational extends PureComponent {
     constructor(props) {
@@ -31,7 +53,7 @@ class SectionPresentational extends PureComponent {
             .catch(console.log)
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this._isMounted = false;
     }
 
@@ -53,9 +75,12 @@ class SectionPresentational extends PureComponent {
                         Seats (Total: {this.state.sectionData.seats}, Open: {this.state.sectionData.open_seats}, Waitlist: {this.state.sectionData.waitlist})
                     </p>
                     <br />
-                    <p className="text-muted">
+                    <p className="float-left text-muted">
                         {this.state.sectionData.meetings.map(meeting => this.renderMeetings(meeting))}
                     </p>
+                    <div className="float-right">
+                        <ConnectedCounter course={this.state.sectionData.section_id}/>
+                    </div>
                 </Card.Header>
             </Card>
         )
