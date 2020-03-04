@@ -22,22 +22,22 @@ class CourseTrayPresentational extends PureComponent {
                         This is a condensed, single page web app that streamlines the course selection process by combining the functionality of Testudo,
                         review aggregators, course GPA averages, and GUI based schedule previews.
                         <br /><br />
-                        Built with React, Redux, and Gatsby. Data pulled from umd.io, PlanetTerp, and Rate My Professors. Will eventually be served via GraphQL to make stuff faster.
+                        Built with React, Redux, and Gatsby. Data pulled from umd.io and PlanetTerp, through a Heroku CORS proxy. 
                 </Card.Body>
                 </Card>
                 <Card className="mb-3">
                     <Card.Body>
-                        v 0.1.0
+                        v 0.3.0
                         <br /><br />
                         <ul>
                             <li>
-                                Schedule tray mocked up. Need to make underlying data structure less spaghetti before deploying.
+                                Average GPAs + professor ratings added. 
                             </li>
                             <li>
-                                Supports search via ID and name filters and parses courses and sections correctly.
+                                Certain professors are missing ratings due to sharing last names. Easy fix, coming soon.
                             </li>
                             <li>
-                                Memory leak occurring less than 5% of the time. Huge success.
+                                API is currently updating for Fall 2020. Will address advanced filtering then.
                             </li>
                         </ul>
                     </Card.Body>

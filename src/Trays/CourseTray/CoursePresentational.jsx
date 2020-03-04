@@ -2,6 +2,7 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 import { Card, Accordion } from "react-bootstrap"
 import SectionCard from "./SectionPresentational"
+import CourseStats from "./CourseStats"
 
 class CoursePresentational extends PureComponent {
     constructor(props) {
@@ -35,16 +36,15 @@ class CoursePresentational extends PureComponent {
 
     componentDidMount() {
         this._isMounted = true;
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        fetch(proxyurl + "https://api.umd.io/v0/courses/" + this.props.course.course_id)
+        fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/" + this.props.course.course_id + "?semester=202001")
             .then(res => res.json())
-            .then(data => {                
+            .then(data => {
                 this._isMounted && this.setState({ courseData: data })
             })
             .catch(console.log)
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this._isMounted = false;
     }
 
@@ -68,15 +68,20 @@ class CoursePresentational extends PureComponent {
                     key={this.props.course.course_id}
                     className="mb-2 front no-radius class-card"
                 >
-                    <Accordion.Toggle className="p-3 pl-4" as={Card.Header} variant="link" eventKey={this.props.course.course_id} onClick={() => this.setState({showSections: !this.state.showSections})}>                        
-                        <Card.Title>{this.props.course.course_id} - {this.props.course.name}</Card.Title>
+                    <Accordion.Toggle className="p-3 pl-4" as={Card.Header} variant="link" eventKey={this.props.course.course_id} onClick={() => this.setState({ showSections: !this.state.showSections })}>
+                        <Card.Title className="course-header">
+                            <div>
+                                <b>{this.props.course.course_id}</b> - {this.props.course.name}
+                            </div>
+                            <CourseStats course_id={this.props.course.course_id} />
+                        </Card.Title>
                         <Card.Subtitle className="mb-1 text-muted">
                             {this.renderSubtitle()}
                         </Card.Subtitle>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={this.props.course.course_id}>
                         <Card.Body className="p-3 pl-4">
-                            <Card.Text> {this.state.courseData.description !== null ? this.state.courseData.description : "Contact " + (this.state.courseData.dept_id !== null ? this.state.courseData.dept_id + " " : "")  + "department for details."} </Card.Text>
+                            <Card.Text> {this.state.courseData.description !== null ? this.state.courseData.description : "Contact " + (this.state.courseData.dept_id !== null ? this.state.courseData.dept_id + " " : "") + "department for details."} </Card.Text>
                             {this.state.showSections ? this.state.courseData.sections.map(section => this.renderSection(section)) : ""}
                         </Card.Body>
                     </Accordion.Collapse>

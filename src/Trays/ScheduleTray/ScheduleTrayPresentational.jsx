@@ -3,60 +3,28 @@ import PropTypes from "prop-types"
 import { Card, Row, Col, Button } from "react-bootstrap"
 
 class ScheduleTrayPresentational extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            sched: [
-                {
-                    name: "Monday",
-                    sections: 13,
-                    times: []
-                },
-                {
-                    name: "Tuesday",
-                    sections: 13,
-                    times: []
-                },
-                {
-                    name: "Wednesday",
-                    sections: 13,
-                    times: []
-                },
-                {
-                    name: "Thursday",
-                    sections: 13,
-                    times: []
-                },
-                {
-                    name: "Friday",
-                    sections: 13,
-                    times: []
-                }
-            ],
-        }
-    }
-
     renderCalendar() {
+        let days = ['M', 'Tu', 'W', 'Th', 'F']
 
         return (
-            <Row className="calendar-div">
+            <Row>
                 <Col xs={1}>
-                    <div className="p-2 y-axis-div"> &nbsp; </div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >8AM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >9AM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >10AM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >11AM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >12PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >1PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >2PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >3PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >4PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >5PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >6PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >7PM</div>
-                    <div className="pt-2 pr-2 pb-3 y-axis-div" >8PM</div>
+                    <div className="x-axis-div"> &nbsp; </div>
+                    <div className="pb-2 pr-2 y-axis-div" >8AM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >9AM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >10AM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >11AM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >12PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >1PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >2PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >3PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >4PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >5PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >6PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >7PM</div>
+                    <div className="pb-2 pr-2 y-axis-div" >8PM</div>
                 </Col>
-                {this.state.sched.map(day => this.renderDay(day))}
+                {days.map(day => this.renderDay(day))}
             </Row>
         )
     }
@@ -64,21 +32,137 @@ class ScheduleTrayPresentational extends PureComponent {
     renderDay(day) {
         let times = [];
 
-        for (var i = 0; i < day.sections; i++) {
-            times.push(this.renderTime(day, i))
+        for (var i = 0; i < 13; i++) {
+            times.push(<div className="section-div" key={day + i} />)
         }
 
         return (
-            <Col key={day.name}>
-                <div className="p-2 x-axis-div">{day.name}</div>
+            <Col key={day}>
+                <div className="x-axis-div">
+                    {day}
+                </div>
                 {times}
             </Col>
         )
     }
 
-    renderTime(day, time) {
+    renderClassOverlay() {
+        let days = ['M', 'Tu', 'W', 'Th', 'F']
+
         return (
-            <div className="pt-2 pl-2 pb-3 calendar-div" key={day.name + time}> &nbsp; </div>
+            <Card className="overlay">
+                <Row>
+                    <Col xs={1}>
+                    </Col>
+                    {days.map(day => this.renderClasses(day))}
+                </Row>
+            </Card>
+        )
+    }
+
+    renderClasses(day) {
+        return (
+            <Col key={"col" + day}>
+                {this.props.sched.filter(course => course.meetings[0].days.includes(day)).map(course => this.renderClass(day, course))}
+                {this.discussionHelper(day)}
+            </Col>
+        )
+    }
+
+    discussionHelper(day) {
+        const filtered = this.props.sched.filter(course => course.meetings[1] !== undefined && course.meetings[1].days.includes(day))
+        if (filtered.length > 0) {
+            return (
+                filtered.map(course => this.renderDiscussion(day, course))
+            )
+        }
+        else {
+            return null
+        }
+    }
+
+    renderClass(day, course) {
+        const start = this.simplifyTime(course.meetings[0].start_time)
+        const end = this.simplifyTime(course.meetings[0].end_time)
+
+        const classStyle = {
+            top: (36 + start * 43).toString() + "px",
+            height: ((end - start) * 43).toString() + "px",
+        }
+
+        return (
+            <Card
+                className="overlay-course p-1"
+                style={classStyle}
+                key={course.section_id + day}
+            >
+                {course.section_id}
+                <br />
+                {course.meetings[0].building} {course.meetings[0].room}
+            </Card>
+        )
+    }
+
+    renderDiscussion(day, course) {
+        const start = this.simplifyTime(course.meetings[1].start_time)
+        const end = this.simplifyTime(course.meetings[1].end_time)
+
+        const classStyle = {
+            top: (36 + start * 43).toString() + "px",
+            height: ((end - start) * 43).toString() + "px",
+        }
+
+        return (
+            <Card
+                className="overlay-course p-1"
+                style={classStyle}
+                key={course.section_id + day}
+            >
+                {course.section_id}
+                <br />
+                {course.meetings[1].building} {course.meetings[1].room} - Discussion
+            </Card>
+        )
+    }
+
+    simplifyTime(t) {
+        let hour = parseFloat(t.substring(0, t.indexOf(':')))
+        let minutes = parseFloat(t.substring(t.indexOf(':') + 1, t.length - 2))
+        let s = hour + (minutes / 60)
+
+        if(t.includes('am') || hour === 12) {
+            s -= 8
+        }
+        else if(t.includes('pm')) {
+            s += 4
+        }     
+
+        return s
+    }
+
+    renderClassQueue() {
+        return (
+            <Row className="class-queue">
+                {this.props.sched.map((course) => this.renderQueuedCourse(course))}
+            </Row>
+        )
+    }
+
+    renderQueuedCourse(course) {
+        return (
+            <Card className="pl-2 p-1 mx-2 back queue-card" key={"queued" + course.section_id}>
+                <Row>
+                    {course.section_id}
+                    <Button
+                        className="ml-1 pb-1 px-2 cancel-button"
+                        variant="light"
+                        type="button"
+                        onClick={() => this.props.removeCourse(course.section_id)}
+                        >
+                        x
+                </Button>
+                </Row>
+            </Card>
         )
     }
 
@@ -88,59 +172,29 @@ class ScheduleTrayPresentational extends PureComponent {
                 <Card.Body>
                     <Card className="schedule">
                         {this.renderCalendar()}
+                        {this.renderClassOverlay()}
                     </Card>
                     <Card className="mt-2">
-                        <Card.Header>
+                        <Card.Header className="py-2">
                             Queued Courses
                         </Card.Header>
                         <Card.Body>
-                            <Row>
+                            <div className="queue-wrapper">
                                 <Button
-                                    className="mx-2 px-2 header-button"
-                                    variant="danger"
-                                    type="button">
+                                    className="mx-2 px-2 queue-button"
+                                    variant="danger"    
+                                    type="button"
+                                    onClick={() => this.props.sched.length > 0 ? this.props.sched.map(course => this.props.removeCourse(course.section_id)) : null}>
                                     clear schedule
                                 </Button>
                                 <Button
-                                    className="mx-2 px-2 header-button"
+                                    className="mx-2 px-2 queue-button"
                                     variant="danger"
                                     type="button">
                                     export schedule
                                 </Button>
-                                <Card className="p-1 mx-2 back">
-                                    <Row>
-                                        CMSC999-101
-                                        <Button
-                                            className="ml-1 pb-1 p-0 cancel-button"
-                                            variant="light"
-                                            type="button">
-                                            x
-                                        </Button>
-                                    </Row>
-                                </Card>
-                                <Card className="p-1 mx-2 back">
-                                    <Row>
-                                        CMSC999-101
-                                        <Button
-                                            className="ml-1 pb-1 p-0 cancel-button"
-                                            variant="light"
-                                            type="button">
-                                            x
-                                        </Button>
-                                    </Row>
-                                </Card>
-                                <Card className="p-1 mx-2 back">
-                                    <Row>
-                                        CMSC999-101
-                                        <Button
-                                            className="ml-1 pb-1 p-0 cancel-button"
-                                            variant="light"
-                                            type="button">
-                                            x
-                                        </Button>                                        
-                                    </Row>
-                                </Card>
-                            </Row>
+                                {this.renderClassQueue()}
+                            </div>
                         </Card.Body>
                     </Card>
                 </Card.Body>
@@ -150,7 +204,8 @@ class ScheduleTrayPresentational extends PureComponent {
 }
 
 ScheduleTrayPresentational.propTypes = {
-
+    sched: PropTypes.array.isRequired,
+    removeCourse: PropTypes.func.isRequired,
 }
 
 export default ScheduleTrayPresentational

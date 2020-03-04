@@ -9,7 +9,8 @@ import {
 } from "react-bootstrap"
 import OptionsTray from "./trays/OptionsTray/OptionsTrayDriver"
 import CourseTray from "./trays/CourseTray/CourseTrayPresentational"
-import ScheduleTray from "./trays/ScheduleTray/ScheduleTrayPresentational"
+import ScheduleTray from "./trays/ScheduleTray/ScheduleTrayDriver"
+import { Helmet } from "react-helmet"
 
 class App extends Component {
    /** Sets up the initial UI state */
@@ -41,8 +42,7 @@ class App extends Component {
    }
 
    componentDidMount() {
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      fetch(proxyurl + "https://api.umd.io/v0/courses/list")
+      fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/list?semester=202001")
          .then(res => res.json())
          .then(data => {
             this.setState({ courses: data })
@@ -53,11 +53,15 @@ class App extends Component {
    render() {
       return (
          <div className="screen">
+            <Helmet>
+               <meta charSet="utf-8" />
+               <title>TerpScheduler</title>
+               <link rel="canonical" href="http://altyin.com/tscheduler" />
+            </Helmet>
             <Container className="vh-100 p-0 float-left">
                <Row>
                   <Card
                      className="red shadow heading-card ml-3"
-                     style={{ width: "18rem" }}
                   >
                      <Card.Body>
                         <Card.Title className="mb-2">TerpScheduler</Card.Title>

@@ -2,6 +2,7 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 import { Card, Button } from "react-bootstrap"
 import { connect } from "react-redux"
+import ProfStats from './ProfStats'
 
 const Adder = ({ add }) => (
     <div>
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return { add: () => dispatch({ type: `ADD_COURSE`, item: ownProps.course }) }
 }
 
-const ConnectedCounter = connect(null, mapDispatchToProps)(Adder)
+const AdderButton = connect(null, mapDispatchToProps)(Adder)
 
 class SectionPresentational extends PureComponent {
     constructor(props) {
@@ -39,16 +40,16 @@ class SectionPresentational extends PureComponent {
                 waitlist: null,
                 instructors: []
             },
+            prof: []
         }
     }
 
     componentDidMount() {
         this._isMounted = true;
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        fetch(proxyurl + "https://api.umd.io/v0/courses/sections/" + this.props.section)
+        fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/sections/" + this.props.section + "?semester=202001")
             .then(res => res.json())
             .then(data => {
-                this._isMounted && this.setState({ sectionData: data })
+                this._isMounted && this.setState({ sectionData: data, prof: data.instructors })
             })
             .catch(console.log)
     }
@@ -68,18 +69,20 @@ class SectionPresentational extends PureComponent {
         return (
             <Card className="mb-1 no-radius section-card">
                 <Card.Header>
-                    <p className="float-left">
-                        {this.state.sectionData.number} - {this.state.sectionData.instructors.join(', ')}
-                    </p>
-                    <p className="float-right text-muted">
-                        Seats (Total: {this.state.sectionData.seats}, Open: {this.state.sectionData.open_seats}, Waitlist: {this.state.sectionData.waitlist})
-                    </p>
-                    <br />
+                    <div className="section-header">
+                        <p>
+                            {this.state.sectionData.number} - {this.state.sectionData.instructors.join(', ')}
+                        </p>
+                        <ProfStats prof_name={this.state.prof !== undefined ? this.state.prof : []} />
+                        <p className="ml-auto text-muted">
+                            Seats (Total: {this.state.sectionData.seats}, Open: {this.state.sectionData.open_seats}, Waitlist: {this.state.sectionData.waitlist})
+                        </p>
+                    </div>
                     <p className="float-left text-muted">
                         {this.state.sectionData.meetings.map(meeting => this.renderMeetings(meeting))}
                     </p>
                     <div className="float-right">
-                        <ConnectedCounter course={this.state.sectionData.section_id}/>
+                        {this.state.sectionData.section_id !== null ? <AdderButton course={this.state.sectionData} /> : ""}
                     </div>
                 </Card.Header>
             </Card>
