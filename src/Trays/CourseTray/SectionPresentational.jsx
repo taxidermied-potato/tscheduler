@@ -46,7 +46,7 @@ class SectionPresentational extends PureComponent {
 
     componentDidMount() {
         this._isMounted = true;
-        fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/sections/" + this.props.section + "?semester=202001")
+        fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/sections/" + this.props.section)
             .then(res => res.json())
             .then(data => {
                 this._isMounted && this.setState({ sectionData: data, prof: data.instructors })

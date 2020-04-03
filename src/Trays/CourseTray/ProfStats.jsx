@@ -17,7 +17,7 @@ class ProfStats extends PureComponent {
         fakeHtml.innerHTML = data;
 
         const avgRatingElem = fakeHtml.querySelectorAll('.row > .col-md-4 > h5')[1];
-        if (avgRatingElem) {            
+        if (avgRatingElem) {
             const matchRes = avgRatingElem.innerText.match(/Average rating: ([0-9]\.[0-9]{2})/);
             if (matchRes && matchRes[1]) {
                 const avgRating = Number(matchRes[1]);
@@ -30,21 +30,30 @@ class ProfStats extends PureComponent {
         return null
     }
 
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     componentDidUpdate() {
+        this._isMounted = true;
         const splitName = this.props.prof_name[0] !== undefined ? this.props.prof_name[0].split(' ') : []
         fetch("https://terpscheduler.herokuapp.com/https://planetterp.com/professor/" + splitName[splitName.length - 1])
             .then(res => res.text())
             .then(data => {
                 if (data === "Professor not found.") {
                     fetch("https://terpscheduler.herokuapp.com/https://planetterp.com/professor/" + splitName[splitName.length - 1] + "_" + splitName[splitName.length - 2])
-                    .then(res => res.text())
-                    .then(data => {
-                        this.setState({ rating: this.findRating(data) })
-                    })
-                    .catch(console.log)
+                        .then(res => res.text())
+                        .then(data => {
+                            this._isMounted && this.setState({ rating: this.findRating(data) })
+                        })
+                        .catch(console.log)
                 }
                 else {
-                    this.setState({ rating: this.findRating(data) })
+                    this._isMounted && this.setState({ rating: this.findRating(data) })
                 }
             })
             .catch(console.log)
@@ -52,9 +61,13 @@ class ProfStats extends PureComponent {
 
     render() {
         return (
-            <Card className="stat-card-rating px-1 ml-2 red">
-                {this.state.rating ? this.state.rating : "N/A"} ★
-            </Card>
+            <div>
+                {this.state.rating ?
+                    <Card className="stat-card-rating px-1 ml-2 red">
+                        {this.state.rating} ★
+                    </Card> : null
+                }
+            </div>
         )
     }
 }

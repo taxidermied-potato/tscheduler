@@ -36,7 +36,7 @@ class CoursePresentational extends PureComponent {
 
     componentDidMount() {
         this._isMounted = true;
-        fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/" + this.props.course.course_id + "?semester=202001")
+        fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/" + this.props.course.course_id)
             .then(res => res.json())
             .then(data => {
                 this._isMounted && this.setState({ courseData: data })

@@ -168,7 +168,7 @@ class ScheduleTrayPresentational extends PureComponent {
 
     render() {
         return (
-            <Card className="float-right ml-5 mb-5 schedule" style={{ width: "65%", height: '77vh' }}>
+            <Card className="float-right ml-5 mb-2 schedule" style={{ width: "65%", maxHeight: '76vh' }}>
                 <Card.Body>
                     <Card className="schedule">
                         {this.renderCalendar()}

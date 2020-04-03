@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react"
+import PropTypes from "prop-types"
 import { Button, Container, Form, Card, Row, Col } from "react-bootstrap"
 import ReactTooltip from "react-tooltip"
 
@@ -7,7 +8,7 @@ class OptionsTrayPresentational extends PureComponent {
       return (
          <Card className="front no-radius options-card">
             <Card.Body className="px-0 pt-2 pb-3">
-               <Container>
+               <Container className="px-0">
                   <Form className="m-0" onSubmit={e => e.preventDefault()}>
                      <Form.Group className="mb-0" controlId="advancedSearch">
                         <Row className="mb-2">
@@ -174,6 +175,10 @@ class OptionsTrayPresentational extends PureComponent {
          </Card>
       )
    }
+}
+
+OptionsTrayPresentational.propTypes = {
+   filter: PropTypes.string.isRequired,
 }
 
 export default OptionsTrayPresentational

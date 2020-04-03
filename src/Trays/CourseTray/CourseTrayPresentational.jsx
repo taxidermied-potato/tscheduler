@@ -68,7 +68,7 @@ class CourseTrayPresentational extends PureComponent {
 
     render() {
         return (
-            <Card className="course-tray back shadow-right" style={{ width: "30%" }}>
+            <Card className="course-tray back shadow-right" style={{ width: "30%", maxHeight: '76vh' }}>
                 <Card.Body className="pl-0 pb-6">
                     {this.props.filteredCourses.length !== 0 ? this.props.filteredCourses.map(course => this.renderCourse(course)) : this.renderWelcome()}
                 </Card.Body>

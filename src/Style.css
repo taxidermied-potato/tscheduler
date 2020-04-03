@@ -8,9 +8,9 @@ body {
    background-image: url("./images/turtle2.jpg");
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
    display: none;
-}
+} */
 
 .main {
    display: flex;
@@ -24,6 +24,7 @@ body::-webkit-scrollbar {
 
 .section-header {
    display: flex;
+   align-items: flex-start;
 }
 
 .stat-card {
@@ -42,6 +43,7 @@ body::-webkit-scrollbar {
    line-height: 1rem;
    padding: .1rem;
    text-align: center;
+   white-space: nowrap;
 }
 
 .course-sched {
@@ -59,6 +61,8 @@ body::-webkit-scrollbar {
 
 .container {
    max-width: 100%;
+   display: flex;
+   flex-direction: column;
 }
 
 .course-tray {
@@ -83,7 +87,6 @@ body::-webkit-scrollbar {
 
 .card {
    background: #ffffff;
-   max-height: 76vh;
    overflow-y: auto;
    font-family: "Nunito", sans-serif;
 }
@@ -279,6 +282,11 @@ button {
 
 .time-form {
    padding-top: 0.3rem;
+}
+
+.row {
+   margin: 0;
+   padding: 0;
 }
 
 .schedule {

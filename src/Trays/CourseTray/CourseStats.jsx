@@ -31,12 +31,17 @@ class CourseStats extends PureComponent {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         fetch("https://terpscheduler.herokuapp.com/https://planetterp.com/course/" + this.props.course_id.toUpperCase())
             .then(res => res.text())
             .then(data => {
-                this.setState({ GPA: this.findGPA(data) })
+                this._isMounted && this.setState({ GPA: this.findGPA(data) })
             })
             .catch(console.log)
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {

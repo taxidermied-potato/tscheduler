@@ -10,7 +10,7 @@ class OptionsTrayDriver extends PureComponent {
             <div>
                <Card className="back shadow-right options-menu">
                   <Card.Body className="py-0 px-2">
-                     <OptionsTrayPresentational />
+                     <OptionsTrayPresentational filter={this.props.filter}/>
                   </Card.Body>
                </Card>
             </div>
@@ -21,6 +21,7 @@ class OptionsTrayDriver extends PureComponent {
 
 OptionsTrayDriver.propTypes = {
    open: PropTypes.bool.isRequired,
+   filter: PropTypes.string.isRequired,
 }
 
 export default OptionsTrayDriver

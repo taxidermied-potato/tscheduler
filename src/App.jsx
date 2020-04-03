@@ -22,7 +22,8 @@ class App extends Component {
          searchKey: "",
          courses: [],
          filteredCourses: [],
-         selectedSections: []
+         selectedSections: [],
+         filterString: "https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/list"
       }
    }
 
@@ -42,7 +43,7 @@ class App extends Component {
    }
 
    componentDidMount() {
-      fetch("https://terpscheduler.herokuapp.com/https://api.umd.io/v0/courses/list?semester=202001")
+      fetch(this.state.filterString)
          .then(res => res.json())
          .then(data => {
             this.setState({ courses: data })
@@ -58,10 +59,10 @@ class App extends Component {
                <title>TerpScheduler</title>
                <link rel="canonical" href="http://altyin.com/tscheduler" />
             </Helmet>
-            <Container className="vh-100 p-0 float-left">
+            <Container className="p-0 float-left">
                <Row>
                   <Card
-                     className="red shadow heading-card ml-3"
+                     className="red shadow heading-card"
                   >
                      <Card.Body>
                         <Card.Title className="mb-2">TerpScheduler</Card.Title>
@@ -120,7 +121,7 @@ class App extends Component {
                         </Form>
                      </Card.Body>
                   </Card>
-                  <OptionsTray open={this.state.moreOptions} />
+                  <OptionsTray open={this.state.moreOptions} filter={this.state.filterString}/>
                </Row>
                <div className="course-sched">
                   <CourseTray filteredCourses={this.state.filteredCourses} />
